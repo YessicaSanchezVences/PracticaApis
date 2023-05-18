@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <meta charset="utf-8">
+         <title>Practica API's Yessica Sanchez</title>
+        
+        <style>
+            * { 
+                font-family: 'Lucida Sans';
+                background-color: cadetblue;
+                text-align: center;
+                justify-content:center;
+                }
+        </style>
+    </head>
+
+    <body>
+        <h2>Por favor cargar video:</h2> 
+        <input type="file" id="videoFile" name="file" onchange="handleFileSelect(event)"> <br><br>            <!--Campo de entrada de archivos-->
+        <video id="video" width="640" height="360" controls></video>                                          <!--Elemento video-->
+
+        <script>
+            if (window.File && window.FileReader && window.FileList) {                                        //Verifica si las API's son compatibles con el navegador.
+            console.log("Todas las APIs soportadas");
+        
+            var video = document.getElementById("video");                                                      //Obtiene el elemento de video del documento.
+
+            function handleFileSelect(e) {                                                                      //Funcion para manejar archivo video local.         
+                var file = e.target.files[0];                                                                   //Archivo subido.
+                var extension = file.name.toLowerCase();                                                        //Se obtiene la extensión.
+                if (extension.endsWith(".mp4") || extension.endsWith(".avi") || extension.endsWith(".mov")) {   //Se comprueba que el archivo tenga la extensión correcta.                                       
+                    var archivoURL = URL.createObjectURL(file);                                                // Usa la funcion "createObjectURL" para crear una URL para el archivo.
+                    video.src = archivoURL;                                                                     //Usa la URL para reporducir el archivo como video.
+                    alert("Cargando, por favor espere unos segundos.");                                         // Si la extensión es correcta, se envia mensaje de carga del video.
+                } else {
+                    alert("Por favor, seleccione un video con la extensión mp4, avi o mov.");                  // Si la extensión no es correcta, se envia mensaje de error.
+                }  
+            }
+
+                                                                     
+            } else {
+                alert("Error, las API's no son soportadas por este navegador.");                            //Muestra un mensaje de error, si las API's no son soportadas por el navegador.
+            }
+        </script><br>  
+            
+        <div><br>                                                                                         <!--Botones del reporductor-->
+            <button onclick="document.getElementById('video').play();">Reproducir video</button>
+            <button onclick="document.getElementById('video').pause();">Pausar video</button>
+            <button onclick="document.getElementById('video').volume +=0.1;">Subir Volumen</button>             
+            <button onclick="document.getElementById('video').volume -=0.1;">Bajar Volumen</button>
+        </div> 
+    </body>
+</html>
+
+
+
